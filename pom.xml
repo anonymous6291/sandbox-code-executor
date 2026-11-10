@@ -10,7 +10,7 @@
     </parent>
     <groupId>vent-ai</groupId>
     <artifactId>vent-ai-coding-agent-sandbox</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>vent-ai-coding-agent-sandbox</name>
     <description>vent-ai-coding-agent-sandbox</description>
     <url/>
