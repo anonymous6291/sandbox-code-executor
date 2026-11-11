@@ -1,4 +1,4 @@
-package ventai.ventaicodingagentsandbox;
+package sandbox.code.executor;
 
 /*
  * Copyright (c) 2026 Anish Kumar Shaw
@@ -14,10 +14,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VentAiCodingAgentSandboxApplication {
+public class SandboxCodeExecutorApplication {
 
     static void main(String[] args) {
-        SpringApplication.run(VentAiCodingAgentSandboxApplication.class, args);
+        SpringApplication.run(SandboxCodeExecutorApplication.class, args);
     }
 
 }

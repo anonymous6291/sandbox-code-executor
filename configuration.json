@@ -1,0 +1,25 @@
+{
+  "max_parallel_execution": 2,
+  "max_runtime_millis": 3000,
+  "input_directory": "input",
+  "output_directory": "output",
+  "languages_config": [
+    {
+      "name": "java",
+      "code_file_name": "run.java",
+      "run_arguments": [
+        "java",
+        "-Xmx300m",
+        "run.java"
+      ]
+    },
+    {
+      "name": "python",
+      "code_file_name": "run.py",
+      "run_arguments": [
+        "python3",
+        "run.py"
+      ]
+    }
+  ]
+}

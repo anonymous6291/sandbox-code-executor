@@ -1,10 +1,10 @@
-package ventai.ventaicodingagentsandbox;
+package sandbox.code.executor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VentAiCodingAgentSandboxApplicationTests {
+class SandboxCodeExecutorApplicationTests {
 
     @Test
     void contextLoads() {

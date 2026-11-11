@@ -1,4 +1,4 @@
-package ventai.ventaicodingagentsandbox.handler;
+package sandbox.code.executor.handler;
 
 /*
  * Copyright (c) 2026 Anish Kumar Shaw
@@ -13,7 +13,8 @@ package ventai.ventaicodingagentsandbox.handler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ventai.ventaicodingagentsandbox.executors.CodeExecutor;
+import sandbox.code.executor.executors.CodeExecutionHandler;
+import tools.jackson.databind.ObjectMapper;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @RestController
 public class DemoChecker {
+    private final ObjectMapper jsonParser = new ObjectMapper();
     private final String java_code1 = """
             import java.io.*;
             public class run {
@@ -50,7 +52,7 @@ public class DemoChecker {
     private final String document_data1 = """
             Hello World!!!!
             """;
-    private final String HOST_URL = "http://127.0.0.1:8080/execute/x1/x2";
+    private final String HOST_URL = "http://127.0.0.1:8080/execute";
     private final Base64.Decoder decoder = Base64.getDecoder();
     private final Base64.Encoder encoder = Base64.getEncoder();
     private final HttpClient httpClient = HttpClient.newHttpClient();
@@ -62,15 +64,16 @@ public class DemoChecker {
     public ResponseEntity<Void> check() {
         try {
             try {
-                CodeExecutor.Query query = new CodeExecutor.Query(
+                CodeExecutionHandler.Query query = new CodeExecutionHandler.Query(
                         "java",
                         encoder.encodeToString(java_code1.getBytes(StandardCharsets.UTF_8)),
                         List.of(
-                                new CodeExecutor.DocumentNameAndData(
+                                new CodeExecutionHandler.DocumentNameAndData(
                                         document_name1,
                                         encoder.encodeToString(document_data1.getBytes(StandardCharsets.UTF_8))
                                 )
-                        )
+                        ),
+                        false
                 );
 
                 String result = sendRequest(query);
@@ -79,10 +82,11 @@ public class DemoChecker {
                 IO.println(e);
             }
             try {
-                CodeExecutor.Query query = new CodeExecutor.Query(
+                CodeExecutionHandler.Query query = new CodeExecutionHandler.Query(
                         "python",
                         encoder.encodeToString(python_code1.getBytes(StandardCharsets.UTF_8)),
-                        List.of()
+                        List.of(),
+                        false
                 );
 
                 String result = sendRequest(query);
@@ -96,25 +100,11 @@ public class DemoChecker {
         }
     }
 
-    private String sendRequest(CodeExecutor.Query query) throws Exception {
-        String queryString = "{\"code_type\" : \"%s\", \"base64_code\" : \"%s\", \"documents\" : [%s]}"
-                .formatted(query.code_type(), query.base64_code(), convertToDocumentsData(query.documents()));
+    private String sendRequest(CodeExecutionHandler.Query query) throws Exception {
+        String queryString = jsonParser.writeValueAsString(query);
         IO.println(queryString);
         HttpRequest httpRequest = HttpRequest.newBuilder(URI.create(HOST_URL)).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(queryString)).build();
         HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         return httpResponse.body();
-    }
-
-    private String convertToDocumentsData(List<CodeExecutor.DocumentNameAndData> documentNameAndData) {
-        if (documentNameAndData.isEmpty()) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (CodeExecutor.DocumentNameAndData d : documentNameAndData) {
-            sb.append("{\"document_name\" : \"%s\", \"base64_data\" : \"%s\"},"
-                    .formatted(d.document_name(), d.base64_data()));
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
     }
 }
