@@ -4,7 +4,7 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.2-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**Sandbox Code Executor** (`vent-ai-coding-agent-sandbox`) is a lightweight, extensible HTTP REST service built with Spring Boot and Java 27 designed for executing arbitrary code snippets in isolated local workspaces. It is tailored for AI coding agents, online judges, and automated evaluation systems that require dynamic code execution with input/output file handling, configurable timeouts, and concurrency throttling.
+**Sandbox Code Executor**  is a lightweight, extensible HTTP REST service built with Spring Boot and Java 27 designed for executing arbitrary code snippets in isolated local workspaces. It is tailored for AI coding agents, online judges, and automated evaluation systems that require dynamic code execution with input/output file handling, configurable timeouts, and concurrency throttling.
 
 ---
 
@@ -111,8 +111,8 @@ Executing code remotely often requires passing sample files, gathering output fi
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/anonymous6291/vent-ai-coding-agent-sandbox.git
-cd vent-ai-coding-agent-sandbox
+git clone https://github.com/anonymous6291/sandbox-code-executor.git
+cd sandbox-code-executor
 ```
 
 ### 2. Configure the Service
