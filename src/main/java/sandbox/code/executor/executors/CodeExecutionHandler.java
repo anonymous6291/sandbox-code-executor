@@ -10,7 +10,6 @@ package sandbox.code.executor.executors;
  * https://github.com/anonymous6291/
  */
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -107,7 +106,7 @@ public class CodeExecutionHandler {
 
             ProcessBuilder processBuilder = new ProcessBuilder(runArguments);
 
-            processBuilder.directory(new File(workingDir));
+            processBuilder.directory(workingDirPath.toFile());
 
             Process process = processBuilder.start();
 

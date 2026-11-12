@@ -57,9 +57,6 @@ public class DemoChecker {
     private final Base64.Encoder encoder = Base64.getEncoder();
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
-    DemoChecker() {
-    }
-
     @GetMapping("/check")
     public ResponseEntity<Void> check() {
         try {
